@@ -1,0 +1,44 @@
+@model IEnumerable<proyectodesarro.Models.Estudiante>
+
+@{
+    ViewData["Title"] = "Lista de Estudiantes";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    <a asp-action="Crear" class="btn btn-primary">Registrar Nuevo Estudiante</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Id)</th>
+            <th>@Html.DisplayNameFor(model => model.Nombre)</th>
+            <th>@Html.DisplayNameFor(model => model.Apellidos)</th>
+            <th>@Html.DisplayNameFor(model => model.Correo)</th>
+            <th>@Html.DisplayNameFor(model => model.Grado)</th>
+            <th>@Html.DisplayNameFor(model => model.Seccion)</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model) {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.Id)</td>
+            <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+            <td>@Html.DisplayFor(modelItem => item.Apellidos)</td>
+            <td>@Html.DisplayFor(modelItem => item.Correo)</td>
+            <td>@Html.DisplayFor(modelItem => item.Grado)</td>
+            <td>@Html.DisplayFor(modelItem => item.Seccion)</td>
+            <td>
+                <a asp-action="Editar" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Editar</a> |
+                <a asp-action="Detalles" asp-route-id="@item.Id" class="btn btn-info btn-sm">Detalles</a> |
+                <a asp-action="Eliminar" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Eliminar</a> |
+                <a asp-controller="Notas" asp-action="Index" asp-route-estudianteId="@item.Id" class="btn btn-secondary btn-sm">Notas</a> |
+                <a asp-controller="Asistencias" asp-action="Index" asp-route-estudianteId="@item.Id" class="btn btn-secondary btn-sm">Asistencia</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

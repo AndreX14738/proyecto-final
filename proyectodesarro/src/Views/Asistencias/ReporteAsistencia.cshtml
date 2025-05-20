@@ -1,0 +1,55 @@
+@model Dictionary<string, Dictionary<string, int>>
+
+@{
+    ViewData["Title"] = "Reporte de Asistencia";
+}
+
+<h1>@ViewData["Title"]</h1>
+<h4>@ViewBag.NombreEstudiante</h4>
+
+<div class="row mt-4">
+    <div class="col-md-8">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Materia</th>
+                        <th class="text-center">Presentes</th>
+                        <th class="text-center">Ausentes</th>
+                        <th class="text-center">Tardanzas</th>
+                        <th class="text-center">Justificados</th>
+                        <th class="text-center">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var materia in Model)
+                    {
+                        var total = materia.Value.Values.Sum();
+                        <tr>
+                            <td>@materia.Key</td>
+                            <td class="text-center">
+                                <span class="badge bg-success">@materia.Value["Presente"]</span>
+                            </td>
+                            <td class="text-center">
+                                <span class="badge bg-danger">@materia.Value["Ausente"]</span>
+                            </td>
+                            <td class="text-center">
+                                <span class="badge bg-warning">@materia.Value["Tardanza"]</span>
+                            </td>
+                            <td class="text-center">
+                                <span class="badge bg-info">@materia.Value["Justificado"]</span>
+                            </td>
+                            <td class="text-center">
+                                <strong>@total</strong>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" asp-route-estudianteId="@ViewBag.EstudianteId" class="btn btn-secondary">Volver al Registro</a>
+</div>

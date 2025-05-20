@@ -3,13 +3,18 @@ namespace ProyectoDesarro.Models
     public class Usuario
     {
         public int Id { get; set; }
-        public string Nombre { get; set; }
-        public string Contrasena { get; set; }
-        public string Email { get; set; }
+        public required string Nombre { get; set; }
+        public required string Contrasena { get; set; }
+        public required string Email { get; set; }
+        public DateTime FechaRegistro { get; set; }
         
         // Constructor vacío
         public Usuario() 
         {
+            FechaRegistro = DateTime.Now;
+            Nombre = string.Empty;
+            Contrasena = string.Empty;
+            Email = string.Empty;
         }
         
         // Constructor con parámetros
@@ -17,6 +22,8 @@ namespace ProyectoDesarro.Models
         {
             Nombre = nombre;
             Contrasena = contrasena;
+            FechaRegistro = DateTime.Now;
+            Email = string.Empty;
         }
         
         // Constructor completo
@@ -26,6 +33,7 @@ namespace ProyectoDesarro.Models
             Nombre = nombre;
             Contrasena = contrasena;
             Email = email;
+            FechaRegistro = DateTime.Now;
         }
         
         // Método para crear un usuario predeterminado fácil
@@ -36,14 +44,15 @@ namespace ProyectoDesarro.Models
                 Id = 1,
                 Nombre = "admin",
                 Contrasena = "123456",
-                Email = "admin@ejemplo.com"
+                Email = "admin@ejemplo.com",
+                FechaRegistro = DateTime.Now
             };
         }
         
         // Método para mostrar información (sin mostrar la contraseña por seguridad)
         public string ObtenerInformacion()
         {
-            return $"Usuario ID: {Id}, Nombre: {Nombre}, Email: {Email}";
+            return $"Usuario ID: {Id}, Nombre: {Nombre}, Email: {Email}, Fecha de Registro: {FechaRegistro}";
         }
     }
 }

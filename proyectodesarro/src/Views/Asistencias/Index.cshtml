@@ -1,0 +1,47 @@
+@model IEnumerable<proyectodesarro.Models.Asistencia>
+
+@{
+    ViewData["Title"] = "Registro de Asistencia";
+}
+
+<h1>@ViewData["Title"]</h1>
+<h4>@ViewBag.NombreEstudiante</h4>
+
+<p>
+    <a asp-action="Registrar" asp-route-estudianteId="@ViewBag.EstudianteId" class="btn btn-primary">Registrar Asistencia</a>
+    <a asp-action="ReporteAsistencia" asp-route-estudianteId="@ViewBag.EstudianteId" class="btn btn-info">Ver Reporte</a>
+    <a asp-controller="Estudiantes" asp-action="Index" class="btn btn-secondary">Volver a Estudiantes</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Fecha)</th>
+            <th>@Html.DisplayNameFor(model => model.Materia)</th>
+            <th>@Html.DisplayNameFor(model => model.Estado)</th>
+            <th>@Html.DisplayNameFor(model => model.Observaciones)</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model) {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.Fecha)</td>
+            <td>@Html.DisplayFor(modelItem => item.Materia)</td>
+            <td>
+                <span class="badge rounded-pill @(item.Estado switch {
+                    "Presente" => "bg-success",
+                    "Ausente" => "bg-danger",
+                    "Tardanza" => "bg-warning",
+                    "Justificado" => "bg-info",
+                    _ => "bg-secondary"
+                })">@item.Estado</span>
+            </td>
+            <td>@Html.DisplayFor(modelItem => item.Observaciones)</td>
+            <td>
+                <a asp-action="Editar" asp-route-id="@item.Id" asp-route-estudianteId="@ViewBag.EstudianteId" class="btn btn-warning btn-sm">Editar</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
