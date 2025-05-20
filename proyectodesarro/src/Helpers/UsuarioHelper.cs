@@ -4,7 +4,7 @@ namespace proyectodesarro.Helpers
 {
     public static class UsuarioHelper
     {
-        private static string filePath = "src/usuarios.csv";
+        private static string filePath = "../usuarios.csv";
 
         public static bool ValidarUsuario(string nombre, string contrasena)
         {
