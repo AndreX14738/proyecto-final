@@ -1,0 +1,35 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "proyectodesarro", "proyectodesarro.csproj", "{980132A4-2D0D-4D6E-E4A4-E20C202F7FFC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "proyectodesarro (1)", "proyectodesarro (1)", "{FDAADF54-E8CF-9E5C-6A2E-6AD7619E3E53}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "src", "proyectodesarro\src\src.csproj", "{8F1856EF-0552-6D62-A1EE-EC2BFAC6DF9B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{980132A4-2D0D-4D6E-E4A4-E20C202F7FFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{980132A4-2D0D-4D6E-E4A4-E20C202F7FFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{980132A4-2D0D-4D6E-E4A4-E20C202F7FFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{980132A4-2D0D-4D6E-E4A4-E20C202F7FFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F1856EF-0552-6D62-A1EE-EC2BFAC6DF9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F1856EF-0552-6D62-A1EE-EC2BFAC6DF9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F1856EF-0552-6D62-A1EE-EC2BFAC6DF9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F1856EF-0552-6D62-A1EE-EC2BFAC6DF9B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8F1856EF-0552-6D62-A1EE-EC2BFAC6DF9B} = {FDAADF54-E8CF-9E5C-6A2E-6AD7619E3E53}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B9DFFB3B-1114-48C1-9F52-D4A46F271438}
+	EndGlobalSection
+EndGlobal

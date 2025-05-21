@@ -1,63 +1,8 @@
 ﻿@{
-    ViewData["Title"] = "Inicio";
+    ViewData["Title"] = "Home Page";
 }
 
-
-<div class="welcome-section">
-    <h1>Bienvenido al Sistema de Gestión Escolar</h1>
-    <p class="lead">Administre estudiantes, asistencias y calificaciones de manera eficiente</p>
-</div>
-
-<div class="quick-actions">
-    <a href="@Url.Action("Crear", "Estudiantes")" class="action-button">
-        <i class="fas fa-user-plus"></i> Nuevo Estudiante
-    </a>
-    <a href="@Url.Action("Index", "Asistencias")" class="action-button">
-        <i class="fas fa-clipboard-check"></i> Registrar Asistencia
-    </a>
-    <a href="@Url.Action("Index", "Notas")" class="action-button">
-        <i class="fas fa-star"></i> Gestionar Notas
-    </a>
-</div>
-
-<div class="stats-container">
-    <div class="stats-card">
-        <i class="fas fa-users feature-icon"></i>
-        <div class="stats-number">@ViewBag.TotalEstudiantes</div>
-        <div class="stats-label">Estudiantes Registrados</div>
-    </div>
-    <div class="stats-card">
-        <i class="fas fa-check-circle feature-icon"></i>
-        <div class="stats-number">@ViewBag.AsistenciaHoy</div>
-        <div class="stats-label">Asistencia Hoy</div>
-    </div>
-    <div class="stats-card">
-        <i class="fas fa-graduation-cap feature-icon"></i>
-        <div class="stats-number">@ViewBag.PromedioNotas</div>
-        <div class="stats-label">Promedio General</div>
-    </div>
-</div>
-
-<div class="row mt-4">
-    <div class="col-md-4">
-        <div class="feature-card">
-            <i class="fas fa-user-graduate feature-icon"></i>
-            <h3>Gestión de Estudiantes</h3>
-            <p>Administre perfiles de estudiantes, información personal y académica de manera eficiente.</p>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="feature-card">
-            <i class="fas fa-clock feature-icon"></i>
-            <h3>Control de Asistencia</h3>
-            <p>Registre y monitoree la asistencia diaria de los estudiantes con facilidad.</p>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="feature-card">
-            <i class="fas fa-chart-line feature-icon"></i>
-            <h3>Seguimiento Académico</h3>
-            <p>Gestione calificaciones y genere reportes de rendimiento académico.</p>
-        </div>
-    </div>
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
