@@ -5,6 +5,14 @@
       "PackagePath": "staticwebassets\\src.jmw82fmw4r.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\ANDRES\\Desktop\\Proyecto.Desarro\\proyectodesarro\\src\\wwwroot\\css\\dashboard.css",
+      "PackagePath": "staticwebassets\\css\\dashboard.css"
+    },
+    {
+      "Id": "C:\\Users\\ANDRES\\Desktop\\Proyecto.Desarro\\proyectodesarro\\src\\wwwroot\\css\\login.css",
+      "PackagePath": "staticwebassets\\css\\login.css"
+    },
+    {
       "Id": "C:\\Users\\ANDRES\\Desktop\\Proyecto.Desarro\\proyectodesarro\\src\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },

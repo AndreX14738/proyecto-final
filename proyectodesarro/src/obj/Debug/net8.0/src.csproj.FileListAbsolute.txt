@@ -1,3 +1,11 @@
+C:\Users\ANDRES\Desktop\Proyecto.Desarro\proyectodesarro\src\obj\Debug\net8.0\src.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ANDRES\Desktop\Proyecto.Desarro\proyectodesarro\src\obj\Debug\net8.0\src.AssemblyInfoInputs.cache
+C:\Users\ANDRES\Desktop\Proyecto.Desarro\proyectodesarro\src\obj\Debug\net8.0\src.AssemblyInfo.cs
+C:\Users\ANDRES\Desktop\Proyecto.Desarro\proyectodesarro\src\obj\Debug\net8.0\src.csproj.CoreCompileInputs.cache
+C:\Users\ANDRES\Desktop\Proyecto.Desarro\proyectodesarro\src\obj\Debug\net8.0\src.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\ANDRES\Desktop\Proyecto.Desarro\proyectodesarro\src\obj\Debug\net8.0\src.RazorAssemblyInfo.cache
+C:\Users\ANDRES\Desktop\Proyecto.Desarro\proyectodesarro\src\obj\Debug\net8.0\src.RazorAssemblyInfo.cs
+C:\Users\ANDRES\Desktop\Proyecto.Desarro\proyectodesarro\src\obj\Debug\net8.0\src.sourcelink.json
 C:\Users\ANDRES\Desktop\Proyecto.Desarro\proyectodesarro\src\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\ANDRES\Desktop\Proyecto.Desarro\proyectodesarro\src\bin\Debug\net8.0\appsettings.json
 C:\Users\ANDRES\Desktop\Proyecto.Desarro\proyectodesarro\src\bin\Debug\net8.0\src.staticwebassets.runtime.json
@@ -7,14 +15,6 @@ C:\Users\ANDRES\Desktop\Proyecto.Desarro\proyectodesarro\src\bin\Debug\net8.0\sr
 C:\Users\ANDRES\Desktop\Proyecto.Desarro\proyectodesarro\src\bin\Debug\net8.0\src.runtimeconfig.json
 C:\Users\ANDRES\Desktop\Proyecto.Desarro\proyectodesarro\src\bin\Debug\net8.0\src.dll
 C:\Users\ANDRES\Desktop\Proyecto.Desarro\proyectodesarro\src\bin\Debug\net8.0\src.pdb
-C:\Users\ANDRES\Desktop\Proyecto.Desarro\proyectodesarro\src\obj\Debug\net8.0\src.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\ANDRES\Desktop\Proyecto.Desarro\proyectodesarro\src\obj\Debug\net8.0\src.AssemblyInfoInputs.cache
-C:\Users\ANDRES\Desktop\Proyecto.Desarro\proyectodesarro\src\obj\Debug\net8.0\src.AssemblyInfo.cs
-C:\Users\ANDRES\Desktop\Proyecto.Desarro\proyectodesarro\src\obj\Debug\net8.0\src.csproj.CoreCompileInputs.cache
-C:\Users\ANDRES\Desktop\Proyecto.Desarro\proyectodesarro\src\obj\Debug\net8.0\src.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\ANDRES\Desktop\Proyecto.Desarro\proyectodesarro\src\obj\Debug\net8.0\src.RazorAssemblyInfo.cache
-C:\Users\ANDRES\Desktop\Proyecto.Desarro\proyectodesarro\src\obj\Debug\net8.0\src.RazorAssemblyInfo.cs
-C:\Users\ANDRES\Desktop\Proyecto.Desarro\proyectodesarro\src\obj\Debug\net8.0\src.sourcelink.json
 C:\Users\ANDRES\Desktop\Proyecto.Desarro\proyectodesarro\src\obj\Debug\net8.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 C:\Users\ANDRES\Desktop\Proyecto.Desarro\proyectodesarro\src\obj\Debug\net8.0\scopedcss\bundle\src.styles.css
 C:\Users\ANDRES\Desktop\Proyecto.Desarro\proyectodesarro\src\obj\Debug\net8.0\scopedcss\projectbundle\src.bundle.scp.css

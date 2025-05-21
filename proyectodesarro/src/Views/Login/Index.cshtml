@@ -1,95 +1,111 @@
 @{
     Layout = null;
 }
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Iniciar Sesión</title>
-    <style>
-        body {
-            background: linear-gradient(to right, #3498db, #8e44ad);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .login-container {
-            background-color: white;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-        }
-
-        .login-container h2 {
-            margin-bottom: 25px;
-            color: #333;
-        }
-
-        .login-container label {
-            display: block;
-            text-align: left;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: #555;
-        }
-
-        .login-container input[type="text"],
-        .login-container input[type="password"] {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            box-sizing: border-box;
-        }
-
-        .login-container button {
-            background-color: #3498db;
-            color: white;
-            padding: 12px;
-            width: 100%;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .login-container button:hover {
-            background-color: #2980b9;
-        }
-
-        .error {
-            color: red;
-            margin-top: 10px;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestión Educativa - Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="~/css/login.css" />
 </head>
 <body>
-    <div class="login-container">
-        <h2>Iniciar Sesión</h2>
-        <form method="post">
-            <label for="nombre">Usuario</label>
-            <input type="text" name="nombre" id="nombre" required />
+    <div class="container">
+        <div class="login">
+            <div class="logo-container">
+                <div class="logo" title="Sistema de Gestión Educativa"></div>
+            </div>
+            <h1 class="title">¡Bienvenido!</h1>
+            <p class="subtitle">Acceda a su cuenta para continuar</p>
+            <form method="post" id="loginForm">
+                <div class="form-group">
+                    <label for="nombre">Usuario</label>
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="nombre" name="nombre" required 
+                           placeholder="Ingrese su nombre de usuario"
+                           autocomplete="username"
+                           aria-label="Nombre de usuario"
+                           minlength="3">
+                </div>
+                
+                <div class="form-group">
+                    <label for="contrasena">Contraseña</label>
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="contrasena" name="contrasena" required 
+                           placeholder="Ingrese su contraseña"
+                           autocomplete="current-password"
+                           aria-label="Contraseña"
+                           minlength="6">
+                    <button type="button" class="toggle-password" aria-label="Mostrar contraseña">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
 
-            <label for="contrasena">Contraseña</label>
-            <input type="password" name="contrasena" id="contrasena" required />
+                @if (ViewBag.Mensaje != null)
+                {
+                    <div class="error" role="alert">
+                        <i class="fas fa-exclamation-circle"></i>
+                        @ViewBag.Mensaje
+                    </div>
+                }
 
-            <button type="submit">Ingresar</button>
-        </form>
-
-        @if (ViewBag.Mensaje != null)
-        {
-            <p class="error">@ViewBag.Mensaje</p>
-        }
+                <button type="submit" class="login-btn">
+                    <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
+                </button>
+            </form>
+        </div>
+        <div class="imgBox">
+            <h2>Sistema de Gestión Académica</h2>
+            <p>Bienvenido a nuestra plataforma integral diseñada para optimizar la gestión educativa. Acceda a todas las herramientas necesarias para el seguimiento académico y administrativo.</p>
+            <div class="features">
+                <div class="feature-item">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>Gestión de Estudiantes</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-clipboard-check"></i>
+                    <span>Control de Asistencia</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Seguimiento Académico</span>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Toggle password visibility
+            const togglePassword = document.querySelector('.toggle-password');
+            const password = document.querySelector('#contrasena');
+
+            togglePassword?.addEventListener('click', function() {
+                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                password.setAttribute('type', type);
+                this.querySelector('i').classList.toggle('fa-eye');
+                this.querySelector('i').classList.toggle('fa-eye-slash');
+            });
+
+            // Form validation feedback
+            const form = document.getElementById('loginForm');
+            const inputs = form.querySelectorAll('input[required]');
+
+            inputs.forEach(input => {
+                input.addEventListener('invalid', function(e) {
+                    e.preventDefault();
+                    this.classList.add('invalid');
+                });
+
+                input.addhis.classList.contains('invalid')) {
+                        this.classList.remove('invalid');
+                    }EventListener('input', function() {
+                    if (t
+                });
+            });
+        });
+    </script>
 </body>
 </html>

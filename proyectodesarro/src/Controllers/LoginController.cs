@@ -22,5 +22,11 @@ namespace proyectodesarro.Controllers
             ViewBag.Mensaje = "Credenciales incorrectas";
             return View();
         }
+
+        public IActionResult CerrarSesion()
+        {
+            // Aquí podrías agregar cualquier limpieza de sesión necesaria
+            return RedirectToAction("Index", "Login");
+        }
     }
 }

@@ -109,6 +109,37 @@ namespace proyectodesarro.Helpers
             return notas;
         }
 
+        public static List<Nota> LeerTodasLasNotas()
+        {
+            if (!File.Exists(notasPath))
+            {
+                return new List<Nota>();
+            }
+
+            var notas = new List<Nota>();
+            var lineas = File.ReadAllLines(notasPath);
+
+            foreach (var linea in lineas)
+            {
+                var datos = linea.Split(',');
+                if (datos.Length >= 7)
+                {
+                    notas.Add(new Nota
+                    {
+                        Id = int.Parse(datos[0]),
+                        EstudianteId = int.Parse(datos[1]),
+                        Materia = datos[2],
+                        Periodo = datos[3],
+                        Valor = decimal.Parse(datos[4]),
+                        FechaRegistro = DateTime.Parse(datos[5]),
+                        Observaciones = datos[6]
+                    });
+                }
+            }
+
+            return notas;
+        }
+
         public static void GuardarAsistencia(Asistencia asistencia)
         {
             var asistencias = LeerAsistencias(asistencia.EstudianteId);
@@ -142,6 +173,36 @@ namespace proyectodesarro.Helpers
                     {
                         Id = int.Parse(datos[0]),
                         EstudianteId = estudianteId,
+                        Materia = datos[2],
+                        Fecha = DateTime.Parse(datos[3]),
+                        Estado = datos[4],
+                        Observaciones = datos[5]
+                    });
+                }
+            }
+
+            return asistencias;
+        }
+
+        public static List<Asistencia> LeerTodasLasAsistencias()
+        {
+            if (!File.Exists(asistenciasPath))
+            {
+                return new List<Asistencia>();
+            }
+
+            var asistencias = new List<Asistencia>();
+            var lineas = File.ReadAllLines(asistenciasPath);
+
+            foreach (var linea in lineas)
+            {
+                var datos = linea.Split(',');
+                if (datos.Length >= 6)
+                {
+                    asistencias.Add(new Asistencia
+                    {
+                        Id = int.Parse(datos[0]),
+                        EstudianteId = int.Parse(datos[1]),
                         Materia = datos[2],
                         Fecha = DateTime.Parse(datos[3]),
                         Estado = datos[4],
