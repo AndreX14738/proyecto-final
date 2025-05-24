@@ -72,11 +72,10 @@
         <div class="container text-center">
             &copy; @DateTime.Now.Year - Sistema de Gestión Educativa
         </div>
-    </footer>
-
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    </footer>    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    @await Html.PartialAsync("_ConfirmDialog")
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -14,9 +14,15 @@ namespace proyectodesarro.Models
         public string? Telefono { get; set; }
         public required string DocumentoIdentidad { get; set; }
         public DateTime FechaIngreso { get; set; }
-        public required string Estado { get; set; } // Activo, Inactivo, Graduado, etc.
+        public required string Estado { get; set; }
         public required string Grado { get; set; }
         public required string Seccion { get; set; }
+        
+        // Nuevas propiedades
+        public required int DocenteId { get; set; }
+        public required string Materia { get; set; }
+        public string? AsistenciaInicial { get; set; }
+        public decimal? NotaInicial { get; set; }
         
         public Estudiante() 
         {
@@ -28,6 +34,9 @@ namespace proyectodesarro.Models
             DocumentoIdentidad = string.Empty;
             Grado = string.Empty;
             Seccion = string.Empty;
+            Materia = string.Empty;
+            DocenteId = 0;
+            AsistenciaInicial = "Presente";
         }
         
         public override string ToString()
@@ -47,7 +56,9 @@ namespace proyectodesarro.Models
                 DocumentoIdentidad = "12345678",
                 Grado = "1",
                 Seccion = "A",
-                Estado = "Activo"
+                Estado = "Activo",
+                DocenteId = 1,
+                Materia = "Matemáticas"
             },
             new Estudiante 
             { 
@@ -58,7 +69,9 @@ namespace proyectodesarro.Models
                 DocumentoIdentidad = "23456789",
                 Grado = "1",
                 Seccion = "A",
-                Estado = "Activo"
+                Estado = "Activo",
+                DocenteId = 1,
+                Materia = "Matemáticas"
             },
             // ... más estudiantes de ejemplo
         };

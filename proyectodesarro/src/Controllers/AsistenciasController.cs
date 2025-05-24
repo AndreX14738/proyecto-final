@@ -1,16 +1,26 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using proyectodesarro.Models;
-using proyectodesarro.Helpers;
+using proyectodesarro.Data;
 
 namespace proyectodesarro.Controllers
 {
     public class AsistenciasController : Controller
     {
-        public IActionResult Index(int estudianteId)
+        private readonly ApplicationDbContext _context;
+
+        public AsistenciasController(ApplicationDbContext context)
         {
-            var asistencias = CSVHelper.LeerAsistencias(estudianteId);
+            _context = context;
+        }
+
+        public async Task<IActionResult> Index(int estudianteId)
+        {
+            var asistencias = await _context.Asistencias
+                .Where(a => a.EstudianteId == estudianteId)
+                .ToListAsync();
             ViewBag.EstudianteId = estudianteId;
-            var estudiante = CSVHelper.LeerEstudiantes().FirstOrDefault(e => e.Id == estudianteId);
+            var estudiante = await _context.Estudiantes.FirstOrDefaultAsync(e => e.Id == estudianteId);
             ViewBag.NombreEstudiante = estudiante != null ? $"{estudiante.Nombre} {estudiante.Apellidos}" : "";
             return View(asistencias);
         }
@@ -21,28 +31,31 @@ namespace proyectodesarro.Controllers
             { 
                 EstudianteId = estudianteId,
                 Materia = string.Empty,
-                Estado = "Presente"
+                Estado = "Presente",
+                Fecha = DateTime.Now
             };
             ViewBag.EstudianteId = estudianteId;
             return View(asistencia);
         }
 
         [HttpPost]
-        public IActionResult Registrar(Asistencia asistencia)
+        public async Task<IActionResult> Registrar(Asistencia asistencia)
         {
             if (ModelState.IsValid)
             {
-                CSVHelper.GuardarAsistencia(asistencia);
+                asistencia.Fecha = DateTime.Now;
+                _context.Add(asistencia);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index), new { estudianteId = asistencia.EstudianteId });
             }
             ViewBag.EstudianteId = asistencia.EstudianteId;
             return View(asistencia);
         }
 
-        public IActionResult Editar(int id, int estudianteId)
+        public async Task<IActionResult> Editar(int id, int estudianteId)
         {
-            var asistencias = CSVHelper.LeerAsistencias(estudianteId);
-            var asistencia = asistencias.FirstOrDefault(a => a.Id == id);
+            var asistencia = await _context.Asistencias
+                .FirstOrDefaultAsync(a => a.Id == id && a.EstudianteId == estudianteId);
             if (asistencia == null)
             {
                 return NotFound();
@@ -52,7 +65,7 @@ namespace proyectodesarro.Controllers
         }
 
         [HttpPost]
-        public IActionResult Editar(int id, Asistencia asistencia)
+        public async Task<IActionResult> Editar(int id, Asistencia asistencia)
         {
             if (id != asistencia.Id)
             {
@@ -61,27 +74,31 @@ namespace proyectodesarro.Controllers
 
             if (ModelState.IsValid)
             {
-                var asistencias = CSVHelper.LeerAsistencias(asistencia.EstudianteId);
-                var index = asistencias.FindIndex(a => a.Id == id);
-                if (index != -1)
+                try
                 {
-                    asistencias[index] = asistencia;
-                    System.IO.File.WriteAllText("asistencias.csv", string.Empty);
-                    foreach (var a in asistencias)
-                    {
-                        CSVHelper.GuardarAsistencia(a);
-                    }
+                    _context.Update(asistencia);
+                    await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index), new { estudianteId = asistencia.EstudianteId });
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!AsistenciaExists(asistencia.Id))
+                    {
+                        return NotFound();
+                    }
+                    throw;
                 }
             }
             ViewBag.EstudianteId = asistencia.EstudianteId;
             return View(asistencia);
         }
 
-        public IActionResult ReporteAsistencia(int estudianteId)
+        public async Task<IActionResult> ReporteAsistencia(int estudianteId)
         {
-            var asistencias = CSVHelper.LeerAsistencias(estudianteId);
-            var estudiante = CSVHelper.LeerEstudiantes().FirstOrDefault(e => e.Id == estudianteId);
+            var asistencias = await _context.Asistencias
+                .Where(a => a.EstudianteId == estudianteId)
+                .ToListAsync();
+            var estudiante = await _context.Estudiantes.FirstOrDefaultAsync(e => e.Id == estudianteId);
             ViewBag.EstudianteId = estudianteId;
             ViewBag.NombreEstudiante = estudiante != null ? $"{estudiante.Nombre} {estudiante.Apellidos}" : "";
 
@@ -102,6 +119,11 @@ namespace proyectodesarro.Controllers
             }
 
             return View(reporte);
+        }
+
+        private bool AsistenciaExists(int id)
+        {
+            return _context.Asistencias.Any(a => a.Id == id);
         }
     }
 }

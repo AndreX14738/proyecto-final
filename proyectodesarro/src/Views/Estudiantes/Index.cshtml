@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Lista de Estudiantes";
+    var docentes = proyectodesarro.Helpers.CSVHelper.LeerUsuarios();
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -19,6 +20,8 @@
             <th>@Html.DisplayNameFor(model => model.Correo)</th>
             <th>@Html.DisplayNameFor(model => model.Grado)</th>
             <th>@Html.DisplayNameFor(model => model.Seccion)</th>
+            <th>Docente</th>
+            <th>Materia</th>
             <th>Acciones</th>
         </tr>
     </thead>
@@ -31,12 +34,14 @@
             <td>@Html.DisplayFor(modelItem => item.Correo)</td>
             <td>@Html.DisplayFor(modelItem => item.Grado)</td>
             <td>@Html.DisplayFor(modelItem => item.Seccion)</td>
+            <td>@(docentes.FirstOrDefault(d => d.Id == item.DocenteId)?.Nombre ?? "No asignado")</td>
+            <td>@Html.DisplayFor(modelItem => item.Materia)</td>
             <td>
-                <a asp-action="Editar" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Editar</a> |
-                <a asp-action="Detalles" asp-route-id="@item.Id" class="btn btn-info btn-sm">Detalles</a> |
-                <a asp-action="Eliminar" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Eliminar</a> |
-                <a asp-controller="Notas" asp-action="Index" asp-route-estudianteId="@item.Id" class="btn btn-secondary btn-sm">Notas</a> |
-                <a asp-controller="Asistencias" asp-action="Index" asp-route-estudianteId="@item.Id" class="btn btn-secondary btn-sm">Asistencia</a>
+                <a asp-action="Editar" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Editar</a>
+                <a asp-action="Detalles" asp-route-id="@item.Id" class="btn btn-info btn-sm">Detalles</a>
+                <a asp-action="Eliminar" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Eliminar</a>
+                <a asp-controller="Notas" asp-action="Index" asp-route-estudianteId="@item.Id" class="btn btn-secondary btn-sm">Ver Notas</a>
+                <a asp-controller="Asistencias" asp-action="Index" asp-route-estudianteId="@item.Id" class="btn btn-secondary btn-sm">Ver Asistencia</a>
             </td>
         </tr>
     }

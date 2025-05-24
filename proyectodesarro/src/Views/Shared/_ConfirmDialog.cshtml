@@ -1,0 +1,36 @@
+@* Modal de confirmación *@
+<div class="modal fade" id="confirmDialog" tabindex="-1" aria-labelledby="confirmDialogLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmDialogLabel">Confirmar Operación</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>¿Desea continuar con la iteración?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="confirmButton">Continuar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function showConfirmDialog(callback) {
+            const modal = new bootstrap.Modal(document.getElementById('confirmDialog'));
+            const confirmButton = document.getElementById('confirmButton');
+            
+            confirmButton.onclick = function() {
+                modal.hide();
+                if (typeof callback === 'function') {
+                    callback();
+                }
+            };
+            
+            modal.show();
+        }
+    </script>
+}

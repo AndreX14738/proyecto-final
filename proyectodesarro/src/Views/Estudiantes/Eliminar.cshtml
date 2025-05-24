@@ -1,0 +1,62 @@
+@model proyectodesarro.Models.Estudiante
+
+@{
+    ViewData["Title"] = "Eliminar Estudiante";
+}
+
+<div class="card">
+    <div class="card-header bg-danger text-white">
+        <h5 class="mb-0">
+            <i class="fas fa-exclamation-triangle"></i>
+            Confirmar Eliminación
+        </h5>
+    </div>
+    <div class="card-body">
+        <div class="alert alert-warning">
+            <i class="fas fa-exclamation-circle"></i>
+            ¿Está seguro que desea eliminar al siguiente estudiante? Esta acción no se puede deshacer.
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <dl class="row">
+                    <dt class="col-sm-4">Nombre completo</dt>
+                    <dd class="col-sm-8">@Model.Nombre @Model.Apellidos</dd>
+
+                    <dt class="col-sm-4">Documento</dt>
+                    <dd class="col-sm-8">@Model.DocumentoIdentidad</dd>
+
+                    <dt class="col-sm-4">Grado</dt>
+                    <dd class="col-sm-8">@Model.Grado</dd>
+
+                    <dt class="col-sm-4">Sección</dt>
+                    <dd class="col-sm-8">@Model.Seccion</dd>
+                </dl>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <form asp-action="Eliminar" method="post">
+                <input type="hidden" asp-for="Id" />
+                <button type="submit" class="btn btn-danger" onclick="return confirmDelete(event)">
+                    <i class="fas fa-trash"></i> Eliminar
+                </button>
+                <a asp-action="Index" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Volver
+                </a>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function confirmDelete(event) {
+            event.preventDefault();
+            showConfirmDialog(() => {
+                event.target.closest('form').submit();
+            });
+            return false;
+        }
+    </script>
+}

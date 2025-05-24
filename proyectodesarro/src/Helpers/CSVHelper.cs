@@ -5,12 +5,12 @@ using System.Linq;
 using proyectodesarro.Models;
 
 namespace proyectodesarro.Helpers
-{
-    public static class CSVHelper
+{    public static class CSVHelper
     {
         private static string estudiantesPath = "estudiantes.csv";
         private static string notasPath = "notas.csv";
         private static string asistenciasPath = "asistencias.csv";
+        private static string usuariosPath = "usuarios.csv";
 
         public static void GuardarEstudiante(Estudiante estudiante)
         {
@@ -23,7 +23,8 @@ namespace proyectodesarro.Helpers
             string linea = $"{estudiante.Id},{estudiante.Nombre},{estudiante.Apellidos},{estudiante.Correo}," +
                          $"{estudiante.FechaNacimiento:yyyy-MM-dd},{estudiante.Direccion},{estudiante.Telefono}," +
                          $"{estudiante.DocumentoIdentidad},{estudiante.FechaIngreso:yyyy-MM-dd},{estudiante.Estado}," +
-                         $"{estudiante.Grado},{estudiante.Seccion}";
+                         $"{estudiante.Grado},{estudiante.Seccion},{estudiante.DocenteId},{estudiante.Materia}," +
+                         $"{estudiante.AsistenciaInicial},{estudiante.NotaInicial}";
             
             File.AppendAllText(estudiantesPath, linea + Environment.NewLine);
         }
@@ -41,7 +42,7 @@ namespace proyectodesarro.Helpers
             foreach (var linea in lineas)
             {
                 var datos = linea.Split(',');
-                if (datos.Length >= 12)
+                if (datos.Length >= 12) // Permitimos leer archivos antiguos que no tienen los nuevos campos
                 {
                     estudiantes.Add(new Estudiante
                     {
@@ -56,7 +57,11 @@ namespace proyectodesarro.Helpers
                         FechaIngreso = DateTime.Parse(datos[8]),
                         Estado = datos[9],
                         Grado = datos[10],
-                        Seccion = datos[11]
+                        Seccion = datos[11],
+                        DocenteId = datos.Length > 12 ? int.Parse(datos[12]) : 1,
+                        Materia = datos.Length > 13 ? datos[13] : "Matemáticas",
+                        AsistenciaInicial = datos.Length > 14 ? datos[14] : "Presente",
+                        NotaInicial = datos.Length > 15 && !string.IsNullOrEmpty(datos[15]) ? decimal.Parse(datos[15]) : null
                     });
                 }
             }
@@ -107,9 +112,7 @@ namespace proyectodesarro.Helpers
             }
 
             return notas;
-        }
-
-        public static List<Nota> LeerTodasLasNotas()
+        }        public static List<Nota> LeerTodasLasNotas()
         {
             if (!File.Exists(notasPath))
             {
@@ -118,6 +121,7 @@ namespace proyectodesarro.Helpers
 
             var notas = new List<Nota>();
             var lineas = File.ReadAllLines(notasPath);
+            var nextId = 1;
 
             foreach (var linea in lineas)
             {
@@ -126,7 +130,7 @@ namespace proyectodesarro.Helpers
                 {
                     notas.Add(new Nota
                     {
-                        Id = int.Parse(datos[0]),
+                        Id = nextId++,
                         EstudianteId = int.Parse(datos[1]),
                         Materia = datos[2],
                         Periodo = datos[3],
@@ -212,6 +216,36 @@ namespace proyectodesarro.Helpers
             }
 
             return asistencias;
+        }
+
+        public static List<Usuario> LeerUsuarios()
+        {
+            if (!File.Exists(usuariosPath))
+            {
+                return new List<Usuario> { Usuario.CrearUsuarioPredeterminado() };
+            }
+
+            var usuarios = new List<Usuario>();
+            var lineas = File.ReadAllLines(usuariosPath);
+            int id = 1;
+
+            foreach (var linea in lineas)
+            {
+                var datos = linea.Split(',');
+                if (datos.Length >= 2)
+                {
+                    usuarios.Add(new Usuario
+                    {
+                        Id = id++,
+                        Nombre = datos[0],
+                        Email = datos.Length > 2 ? datos[2] : $"{datos[0]}@ejemplo.com",
+                        Contrasena = datos[1],
+                        FechaRegistro = DateTime.Now
+                    });
+                }
+            }
+
+            return usuarios;
         }
     }
 }

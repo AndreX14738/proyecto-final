@@ -1,4 +1,4 @@
-namespace ProyectoDesarro.Models 
+namespace proyectodesarro.Models 
 {
     public class Usuario
     {

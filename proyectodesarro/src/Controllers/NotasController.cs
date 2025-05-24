@@ -1,16 +1,26 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using proyectodesarro.Models;
-using proyectodesarro.Helpers;
+using proyectodesarro.Data;
 
 namespace proyectodesarro.Controllers
 {
     public class NotasController : Controller
     {
-        public IActionResult Index(int estudianteId)
+        private readonly ApplicationDbContext _context;
+
+        public NotasController(ApplicationDbContext context)
         {
-            var notas = CSVHelper.LeerNotas(estudianteId);
+            _context = context;
+        }
+
+        public async Task<IActionResult> Index(int estudianteId)
+        {
+            var notas = await _context.Notas
+                .Where(n => n.EstudianteId == estudianteId)
+                .ToListAsync();
             ViewBag.EstudianteId = estudianteId;
-            var estudiante = CSVHelper.LeerEstudiantes().FirstOrDefault(e => e.Id == estudianteId);
+            var estudiante = await _context.Estudiantes.FirstOrDefaultAsync(e => e.Id == estudianteId);
             ViewBag.NombreEstudiante = estudiante != null ? $"{estudiante.Nombre} {estudiante.Apellidos}" : "";
             return View(notas);
         }
@@ -21,28 +31,31 @@ namespace proyectodesarro.Controllers
             { 
                 EstudianteId = estudianteId,
                 Materia = string.Empty,
-                Periodo = string.Empty
+                Periodo = string.Empty,
+                FechaRegistro = DateTime.Now
             };
             ViewBag.EstudianteId = estudianteId;
             return View(nota);
         }
 
         [HttpPost]
-        public IActionResult Crear(Nota nota)
+        public async Task<IActionResult> Crear(Nota nota)
         {
             if (ModelState.IsValid)
             {
-                CSVHelper.GuardarNota(nota);
+                nota.FechaRegistro = DateTime.Now;
+                _context.Add(nota);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index), new { estudianteId = nota.EstudianteId });
             }
             ViewBag.EstudianteId = nota.EstudianteId;
             return View(nota);
         }
 
-        public IActionResult Editar(int id, int estudianteId)
+        public async Task<IActionResult> Editar(int id, int estudianteId)
         {
-            var notas = CSVHelper.LeerNotas(estudianteId);
-            var nota = notas.FirstOrDefault(n => n.Id == id);
+            var nota = await _context.Notas
+                .FirstOrDefaultAsync(n => n.Id == id && n.EstudianteId == estudianteId);
             if (nota == null)
             {
                 return NotFound();
@@ -52,7 +65,7 @@ namespace proyectodesarro.Controllers
         }
 
         [HttpPost]
-        public IActionResult Editar(int id, Nota nota)
+        public async Task<IActionResult> Editar(int id, Nota nota)
         {
             if (id != nota.Id)
             {
@@ -61,27 +74,29 @@ namespace proyectodesarro.Controllers
 
             if (ModelState.IsValid)
             {
-                var notas = CSVHelper.LeerNotas(nota.EstudianteId);
-                var index = notas.FindIndex(n => n.Id == id);
-                if (index != -1)
+                try
                 {
-                    notas[index] = nota;
-                    System.IO.File.WriteAllText("notas.csv", string.Empty);
-                    foreach (var n in notas)
-                    {
-                        CSVHelper.GuardarNota(n);
-                    }
+                    _context.Update(nota);
+                    await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index), new { estudianteId = nota.EstudianteId });
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!NotaExists(nota.Id))
+                    {
+                        return NotFound();
+                    }
+                    throw;
                 }
             }
             ViewBag.EstudianteId = nota.EstudianteId;
             return View(nota);
         }
 
-        public IActionResult Eliminar(int id, int estudianteId)
+        public async Task<IActionResult> Eliminar(int id, int estudianteId)
         {
-            var notas = CSVHelper.LeerNotas(estudianteId);
-            var nota = notas.FirstOrDefault(n => n.Id == id);
+            var nota = await _context.Notas
+                .FirstOrDefaultAsync(n => n.Id == id && n.EstudianteId == estudianteId);
             if (nota == null)
             {
                 return NotFound();
@@ -91,20 +106,21 @@ namespace proyectodesarro.Controllers
         }
 
         [HttpPost, ActionName("Eliminar")]
-        public IActionResult ConfirmarEliminar(int id, int estudianteId)
+        public async Task<IActionResult> ConfirmarEliminar(int id, int estudianteId)
         {
-            var notas = CSVHelper.LeerNotas(estudianteId);
-            var nota = notas.FirstOrDefault(n => n.Id == id);
+            var nota = await _context.Notas
+                .FirstOrDefaultAsync(n => n.Id == id && n.EstudianteId == estudianteId);
             if (nota != null)
             {
-                notas.Remove(nota);
-                System.IO.File.WriteAllText("notas.csv", string.Empty);
-                foreach (var n in notas)
-                {
-                    CSVHelper.GuardarNota(n);
-                }
+                _context.Notas.Remove(nota);
+                await _context.SaveChangesAsync();
             }
             return RedirectToAction(nameof(Index), new { estudianteId });
+        }
+
+        private bool NotaExists(int id)
+        {
+            return _context.Notas.Any(n => n.Id == id);
         }
     }
 }

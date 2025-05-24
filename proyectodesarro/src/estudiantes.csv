@@ -1,3 +1,7 @@
-1,Jose Luis,Maraza,jose.maraza@gmail.com,2000-08-14,antofagasta,65856365,14151227,2025-05-20,Activo,segundaria,5
-2,Cristian,Villarruel,Cristian.villaruel@gmail.com,1900-05-08,cercado,47465522,6658556,2025-05-20,Activo,6,segundaria
-3,Abad,Bejar,abad.bejar@gmail.com,2005-01-20,cobija,4478544565,14784512,2025-05-20,Graduado,segundaria ,6
+1,Jose Luis,Maraza,jose.maraza@gmail.com,2000-08-14,antofagasta,65856365,14151227,2025-05-20,Activo,segundaria,5,1,Matemáticas,Presente,15
+2,Cristian,Villarruel,Cristian.villaruel@gmail.com,1900-05-08,cercado,47465522,6658556,2025-05-20,Activo,6,segundaria,1,Lenguaje,Presente,16
+3,Abad,Bejar,abad.bejar@gmail.com,2005-01-20,cobija,4478544565,14784512,2025-05-20,Graduado,segundaria,6,1,Ciencias,Presente,17
+4,aa,sss,aa@fmail.com,0001-01-01,qqqq,3416231465,565,2025-05-21,Graduado,6,a,1,Historia,Presente,14
+5,cvb,cd,a@gmail.com,0001-01-01,tacat,55555,44444,2025-05-23,Activo,6,a,2,Lenguaje,Presente,20
+6,tarzan,s,tarzan@gmail.com,0001-01-01,2,565,789,2025-05-23,Activo,5,5,1,Historia,Presente,20
+7,shazamm,turgues,turgues@gmail.com,1998-06-15,assad,666582525,23123233,2025-05-24,Graduado,segundaria,10,2,Historia,Presente,11

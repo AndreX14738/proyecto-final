@@ -1,25 +1,37 @@
 using Microsoft.AspNetCore.Mvc;
-using proyectodesarro.Helpers;
+using Microsoft.EntityFrameworkCore;
+using proyectodesarro.Models;
+using proyectodesarro.Data;
 
 namespace proyectodesarro.Controllers
 {
     public class LoginController : Controller
     {
+        private readonly ApplicationDbContext _context;
+
+        public LoginController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
         public IActionResult Index()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult Index(string nombre, string contrasena)
+        public async Task<IActionResult> Index(string nombre, string contrasena)
         {
-            if (UsuarioHelper.ValidarUsuario(nombre, contrasena))
+            var usuario = await _context.Usuarios
+                .FirstOrDefaultAsync(u => u.Nombre == nombre && u.Contrasena == contrasena);
+
+            if (usuario != null)
             {
-                // Redirigir a la lista de estudiantes si el login es válido
-                return RedirectToAction("Index", "Estudiantes");
+                // En una aplicación real, aquí deberías usar una autenticación adecuada
+                return RedirectToAction("Index", "Home");
             }
 
-            ViewBag.Mensaje = "Credenciales incorrectas";
+            ModelState.AddModelError("", "Usuario o contraseña incorrectos");
             return View();
         }
 
